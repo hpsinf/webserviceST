@@ -46,6 +46,7 @@ app.use((req, res, next) => {
      res.removeHeader('Access-Control-Allow-Headers')
      res.removeHeader('Access-Control-Allow-Credentials')
      res.removeHeader('Cache-Control')  
+     //res.removeHeader("Server")       
      next()
  })
 
