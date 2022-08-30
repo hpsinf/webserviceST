@@ -51,9 +51,10 @@ app.use((req, res, next) => {
 
 app.use(routes)
 
+const port = process.env.PORT
 
-app.listen(3000, () =>
-    console.log("Servidor iniciado na porta 3000")
+app.listen(port, () =>
+    console.log(`Servidor iniciado na porta ${port}`)
 )
 
 
