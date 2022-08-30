@@ -4,13 +4,18 @@ import auth from "../controllers/auth.js"
 import authMid from "../../services/auth.js"
 import routerpai from "./pais.js"
 import routerfilho from "./filho.js"
+import path from "path"
+
+const __dirname = path.resolve();
+
+
 //import filhocontroller from "../controllers/filho.js"
 //import paicontroller from "../controllers/pai.js"
 
 const routers = express.Router()
 
 routers.get('/', (req, res) =>
-    res.send('<h1 style="color: blue">WebService St</h1>')
+    res.sendFile(path.join(__dirname+'/index.html'))
 )
 routers.get('/sobre', (req, res) =>
     res.json ({sobre: "Sobre"})
@@ -26,4 +31,4 @@ routers.get("/verificarserial", authMid.autorizar, auth.verificarSerial)
 routers.use("/v01/", routerpai)
 routers.use("/v01/", routerfilho)
 
-export {routers as default};
+export {routers as default}
