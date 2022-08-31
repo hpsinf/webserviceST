@@ -1,10 +1,5 @@
 import filhorepo from "../../models/filho.js";
 
-// function All(req, res) {
-//     filhorepo.findAll().then(
-//         (result) => res.json(result)
-//     )
-// }
 
 async function findFilho(req, res) {
     let id =  req.body.id || req.query.id
@@ -17,12 +12,6 @@ async function findFilho(req, res) {
     }
 }
 
-// async function findFilho(req, res) {
-//     let id = req.body.id || req.query.id || req.params.id
-//     await filhorepo.findByPk(id).then(
-//         (result) => res.json(result))
-// }
-
 async function addFilho(req, res) {
     await filhorepo.create({
         nomefilho: req.body.nome,
@@ -32,22 +21,28 @@ async function addFilho(req, res) {
 }
 
 async function updateFilho(req, res) {
-    let id = req.body.id || req.query.id || req.params.id
-    let idpai = req.body.idpai || req.query.idpai
-    await filhorepo.update(
-    {
-        nomefilho: req.body.nome,
-        idadefilho: req.body.idade,
-        paitesteId: idpai
-        },
-        {
-            where: {
-                idfilho: id
+    let id = req.body.id 
+    let idpai = req.body.idpai
+    let nome = req.body.nome
+    let idade = req.body.idade
+    if (id){
+      await filhorepo.update(
+            {
+                nomefilho: nome,
+                idadefilho: idade,
+                paitesteId: idpai
+            },
+            {   
+                where: { idfilho: id }
             }
-        }
-    )
-    await filhorepo.findByPk(id, {include: ["paiteste"]} ).then(
-        (result) => res.status(200).json(result))
+        )
+        await filhorepo.findByPk(id, {include: ["paiteste"]} ).then(
+            (result) => res.status(200).json(result))        
+    } else {
+        res.status(202).send([{
+            mensagem: "id não informado"
+        }])
+    }       
 }
 
 async function deleteFilho(req, res) {
