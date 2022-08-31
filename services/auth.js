@@ -19,7 +19,6 @@ async function verificarSerial (serial) {
     }
     return dados;
 }
-
 async function autorizar (req, res, next) {
     try {
         const serial = req.body.serial || req.headers['x-access-serial', 'serial']

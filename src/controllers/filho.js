@@ -51,7 +51,7 @@ async function updateFilho(req, res) {
 }
 
 async function deleteFilho(req, res) {
-    let id = req.body.id || req.query.id || req.params.id
+    let id = req.body.id 
     await filhorepo.destroy(
         {
             where: {

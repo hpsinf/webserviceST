@@ -49,7 +49,7 @@ async function updatePai(req, res) {
 }
 
 async function deletePai(req, res) {
-    let id = req.body.id || req.query.id || req.params.id
+    let id = req.body.id 
     await pairepo.destroy(
         {
             where: {
