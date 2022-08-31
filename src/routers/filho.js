@@ -4,7 +4,7 @@ import controller from "../controllers/filho.js"
 
 const router = express.Router()
 
-router.get("/filhos", controller.findFilho)
+router.get("/filhos", authMid.autorizar, controller.findFilho)
 router.post("/filhos", authMid.autorizar, controller.addFilho)
 router.put("/filhos", authMid.autorizar, controller.updateFilho)
 router.delete("/filhos", authMid.autorizacaoEspecial, controller.deleteFilho)
