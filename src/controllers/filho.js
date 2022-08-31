@@ -55,7 +55,7 @@ async function deleteFilho(req, res) {
     await filhorepo.destroy(
         {
             where: {
-                id: id
+                idfilho: id
             }
         }
     )
