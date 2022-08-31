@@ -24,7 +24,7 @@ async function autorizar (req, res, next) {
         const serial = req.body.serial || req.headers['x-access-serial', 'serial']
         if (!serial) {
             return res.status(401).json([{
-                mensagem: "Serial de acesso não encontrada"
+                mensagem: "Serial de acesso não encontrado, serial deve ser informado no body ou header da requisição"
             }])
         }
         jwt.verify(serial, chave, (error, decoded) => {
