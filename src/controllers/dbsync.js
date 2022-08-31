@@ -8,7 +8,7 @@ async function sincronizar(req, res){
         sicronizardb()
         res.status(200).send("Banco sincronizado")
     }catch(err){
-        res.status(401).send(err.message)
+        res.status(500).send(err.message)
     }
 }
 

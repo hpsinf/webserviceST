@@ -29,7 +29,7 @@ async function addPai(req, res) {
     await pairepo.create({
         nome: req.body.nome,
         dtnascimento: req.body.dtnascimento
-     }).then((result) => res.json(result))
+     }).then((result) => res.status(201).json(result))
 }
 
 async function updatePai(req, res) {

@@ -23,7 +23,7 @@ async function autorizar (req, res, next) {
     try {
         const serial = req.body.serial || req.headers['x-access-serial', 'serial']
         if (!serial) {
-            return res.status(401).json([{
+            return res.status(403).json([{
                 mensagem: "Serial de acesso não encontrado, serial deve ser informado no body ou header da requisição"
             }])
         }
@@ -50,7 +50,7 @@ async function autorizacaoEspecial (req, res, next) {
             ])
         } else next()
     } else
-        return res.status(401).json([
+        return res.status(403).json([
             {mensagem: "Acesso negado"}
         ])
 }

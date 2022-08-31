@@ -28,7 +28,7 @@ async function addFilho(req, res) {
         nomefilho: req.body.nome,
         idadefilho: req.body.idade,
         paitesteId: req.body.idpai
-     }).then((result) => res.json(result))
+     }).then((result) => res.status(201).json(result))
 }
 
 async function updateFilho(req, res) {
@@ -47,7 +47,7 @@ async function updateFilho(req, res) {
         }
     )
     await filhorepo.findByPk(id, {include: ["paiteste"]} ).then(
-        (result) => res.json(result))
+        (result) => res.status(200).json(result))
 }
 
 async function deleteFilho(req, res) {
@@ -60,7 +60,7 @@ async function deleteFilho(req, res) {
         }
     )
     await filhorepo.findByPk(id, {include: ["paiteste"]}).then(
-        (result) => res.json(result)
+        (result) => res.status(200).json(result)
     )
 }
 

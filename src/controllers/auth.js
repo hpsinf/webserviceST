@@ -17,14 +17,14 @@ async function pegarSerial (req, res) {
 
     if (!serial)
         res.status(500).send([{Erro: "Falha na geração do serial"}])
-    res.status(200).send([{serial: serial}])
+    res.status(201).send([{serial: serial}])
 }
 
 async function verificarSerial(req, res){
     try {
         const serial = req.body.serial || req.query.serial
         if (!serial)
-            res.status(500).send([{Erro: "Falha ao verificar a serial"}])
+            res.status(500).send([{Erro: "Serial não encontrardo"}])
 
         const serial_verificado = await auth.verificarSerial(serial)
         if (!serial_verificado)
