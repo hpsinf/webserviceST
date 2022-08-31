@@ -28,7 +28,7 @@ routers.get("/verificarserial", authMid.autorizar, auth.verificarSerial)
 
 
 //v01 
-routers.use("siafic/v01/", routerpai)
-routers.use("siafic/v01/", routerfilho)
+routers.use("/siafic/v01/", routerpai)
+routers.use("/siafic/v01/", routerfilho)
 
 export {routers as default}
