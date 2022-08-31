@@ -30,7 +30,7 @@ async function autorizar (req, res, next) {
         jwt.verify(serial, chave, (error, decoded) => {
             if (error) {
                 return res.status(401).json([{
-                    mensagem: "Serial inválida"
+                    mensagem: `Serial inválida, ${error.message}`
                 }])
             }
             next()
