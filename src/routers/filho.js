@@ -7,6 +7,6 @@ const router = express.Router()
 router.get("/filhos", controller.findFilho)
 router.post("/filhos", controller.addFilho)
 router.put("/filhos", controller.updateFilho)
-router.delete("/filhos/:id", controller.deleteFilho)
+router.delete("/filhos", controller.deleteFilho)
 
 export default router
