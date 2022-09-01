@@ -14,6 +14,9 @@ app.use(bodyParser.urlencoded({ extended: true })) //Validação para todos os t
 app.disable('x-powered-by') 
 app.disable('etag') 
 app.disable('server')
+app.disable('via')
+
+
 
 app.use(express.json())
 
