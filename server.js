@@ -10,7 +10,7 @@ const app = express()
 app.use(bodyParser.json()) //Validação das requisições (req.body)
 app.use(bodyParser.urlencoded({ extended: true })) //Validação para todos os tipos de dados na requisições (req.body)
 
-//Remoção de informações desnecessarias no responde.header
+//Remoção de informações desnecessarias no responde.header quando possível
 app.disable('x-powered-by') 
 app.disable('etag') 
 app.disable('server')
