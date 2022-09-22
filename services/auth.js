@@ -7,7 +7,7 @@ const chave = process.env.CHAVE
 
 
 async function gerarSerial (dados) {
-    return jwt.sign(dados, chave, { expiresIn: dados.dias })
+    return jwt.sign(dados, chave, { expiresIn: dados.dias,  })
 }
 
 
@@ -19,6 +19,7 @@ async function verificarSerial (serial) {
     }
     return dados;
 }
+
 async function autorizar (req, res, next) {
     try {
         const serial = req.body.serial || req.headers['x-access-serial', 'serial']

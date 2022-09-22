@@ -4,9 +4,9 @@ import controller from "../controllers/filho.js"
 
 const router = express.Router()
 
-router.get("/filhos", authMid.autorizar, controller.findFilho)
-router.post("/filhos", authMid.autorizar, controller.addFilho)
-router.put("/filhos", authMid.autorizar, controller.updateFilho)
+router.get("/filhos",  controller.findFilho)
+router.post("/filhos", controller.addFilho)
+router.put("/filhos",  controller.updateFilho)
 router.delete("/filhos", authMid.autorizacaoEspecial, controller.deleteFilho)
 
 export default router

@@ -6,10 +6,12 @@ import auth from "../../services/auth.js"
 async function pegarSerial (req, res) {
     const diasPermissao = req.body.dias
     const clientePermissao = req.body.cliente
+    const idc = req.body.idc
 
     const dados = {
             dias: diasPermissao + 'd',
             cliente: clientePermissao,
+            idc: idc,
             datageracao: util.dataHoraAtualFormatada('d'),
             hora: util.dataHoraAtualFormatada('h')
     }
