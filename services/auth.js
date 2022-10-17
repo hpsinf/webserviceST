@@ -7,7 +7,8 @@ const chave = process.env.CHAVE
 
 
 async function gerarSerial (dados) {
-    return jwt.sign(dados, chave, { expiresIn: dados.dias,  })
+    let periodo = dados.dias
+    return jwt.sign(dados, chave, { expiresIn: periodo})
 }
 
 
@@ -31,7 +32,7 @@ async function autorizar (req, res, next) {
         jwt.verify(serial, chave, (error, decoded) => {
             if (error) {
                 return res.status(401).json([{
-                    mensagem: `Erro ao verificar o serial:  ${error.message}`
+                    mensagem: `Serial inválido:  ${error.message}`
                 }])
             }
             next()

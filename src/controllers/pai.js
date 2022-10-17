@@ -2,7 +2,7 @@ import pairepo from "../../models/pai.js"
 import {Sequelize} from "sequelize"
 
 
-async function findPai(req, res) {
+async function findPai(req, res) {  
     let id = req.body.id || req.query.id
     if (id){
         await pairepo.findByPk(id).then(
@@ -26,10 +26,25 @@ async function findByName(req, res) {
 }
 
 async function addPai(req, res) {
-    await pairepo.create({
-        nome: req.body.nome,
-        dtnascimento: req.body.dtnascimento
-     }).then((result) => res.status(201).json(result))
+    let amb = req.query.amb ||req.body.amb
+    switch (amb) {
+        case '1':
+            await pairepo.create({
+                nome: req.body.nome,
+                dtnascimento: req.body.dtnascimento
+             }).then((result) => res.status(201).json(result))            
+            break
+        case '2':
+            res.status(201).json({
+                    nome: req.body.nome,
+                    dtnascimento: req.body.dtnascimento
+                })
+            break    
+        default:
+          console.log(`Ambiente não definido.`)
+      }
+
+    
 }
 
 async function updatePai(req, res) {

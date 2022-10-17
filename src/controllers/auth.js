@@ -9,7 +9,7 @@ async function pegarSerial (req, res) {
     const idc = req.body.idc
 
     const dados = {
-            dias: diasPermissao + 'd',
+            dias: diasPermissao,
             cliente: clientePermissao,
             idc: idc,
             datageracao: util.dataHoraAtualFormatada('d'),
@@ -26,13 +26,13 @@ async function verificarSerial(req, res){
     try {
         const serial = req.body.serial || req.query.serial
         if (!serial)
-            res.status(500).send([{Erro: "Serial não encontrardo"}])
+            return res.status(500).send([{Erro: "Serial não encontrardo"}])
 
         const serial_verificado = await auth.verificarSerial(serial)
         if (!serial_verificado)
-            res.status(500).send([{Erro: "Falha ao verificar a serial"}])
+            return res.status(500).send([{Erro: "Falha ao verificar a serial"}])
 
-        res.status(200).send(serial_verificado)
+        return res.status(200).send(serial_verificado)
 
     } catch (err){
         return res.status(500).json(err.mensagem)
