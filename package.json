@@ -1,14 +1,14 @@
 {
   "name": "apiweb",
   "version": "1.0.0",
-  "description": "",
+  "description": "Web Service Base para projeto SIAFIC da ST",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Henrique Pinheiro da Silva",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.1",
