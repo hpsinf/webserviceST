@@ -6,11 +6,12 @@ const dbUser = process.env.DB_USER_PG
 const dbHost = process.env.DB_HOST_PG
 const dbPassword = process.env.DB_PASSWORD_PG
 
+// const conn = new Sequelize(`postgres://${dbUser}:${dbPassword}@${dbHost}:5432/${dbName}`)
 const conn = new Sequelize(`postgres://${dbUser}:${dbPassword}@${dbHost}:5432/${dbName}`)
 
 conn.authenticate()
   .then(() => {
-    console.log(`Conectado em ${dbName}`)
+    console.log(`conectar em ${dbName}`)
    return true
   })
   .catch(err => {
