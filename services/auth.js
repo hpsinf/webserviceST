@@ -23,7 +23,9 @@ async function verificarSerial (serial) {
 
 async function autorizar (req, res, next) {
     try {
-        const serial = req.body.serial || req.headers['x-access-serial', 'serial']
+        const sXAccessSerial = 'x-access-serial'
+        const sSerial = 'serial'
+        const serial = req.body.serial || req.headers[sXAccessSerial, sSerial]
         if (!serial) {
             return res.status(403).json([{
                 mensagem: "Serial de acesso não encontrado, serial deve ser informado no body ou header da requisição"

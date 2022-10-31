@@ -4,8 +4,8 @@ import sicronizardb from "../../services/dbsync.js";
 
 async function sincronizar(req, res){
     try
-    {
-        sicronizardb()
+    {        
+        await sicronizardb()
         res.status(200).send("Banco sincronizado")
     }catch(err){
         res.status(500).send(err.message)
