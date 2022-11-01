@@ -2,6 +2,12 @@ import express from "express"
 import routes from "./src/routers/routers.js"
 import bodyParser from "body-parser"
 import db from "./src/db.js"
+import path from "path"
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 //import sicronizardb from "./services/dbsync.js"
 
 //sicronizardb()
@@ -64,6 +70,17 @@ const port = process.env.PORT || 21115
 app.listen(port, () =>
     console.log(`Servidor iniciado na porta ${port}`)
 )
+
+app.use((req, res, next) => {
+    var err = new Error('Url não existe');
+    err.status = 404;
+    next(err);
+});
+app.use((err, req, res, next) => {
+    console.log(err.stack);
+    res.status(err.status || 500).sendFile('error.html', {root: path.join(__dirname, './')});
+});
+
 
 
 
