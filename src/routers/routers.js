@@ -33,11 +33,11 @@ routers.get("/verificarserial", /*authMid.autorizar,*/ auth.verificarSerial)
 routers.get("/siafic/v01/", (req, res) =>{
     res.sendFile(path.join(__dirname+'/index.html'))    
 })
-routers.use("/siafic/v01/", /*authMid.autorizar,*/ routerpais)
-routers.use("/siafic/v01/", /*authMid.autorizar,*/ routerfilhos)
+routers.use("/siafic/v01/", authMid.autorizar, routerpais)
+routers.use("/siafic/v01/", authMid.autorizar, routerfilhos)
 
-routers.use("/siafic/v01/", /*authMid.autorizar,*/ routercontas)
-routers.use("/siafic/v01/", /*authMid.autorizar,*/ routerplanodecontas)
+routers.use("/siafic/v01/", authMid.autorizar, routercontas)
+routers.use("/siafic/v01/", authMid.autorizar, routerplanodecontas)
 
 
 export {routers as default}
