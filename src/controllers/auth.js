@@ -24,7 +24,7 @@ async function pegarSerial (req, res) {
 
 async function verificarSerial(req, res){
     try {
-        const serial = req.body.serial || req.query.serial
+        const serial = req.headers['x-access-serial', 'serial']
         if (!serial)
             return res.status(500).send([{Erro: "Serial não encontrardo"}])
 
