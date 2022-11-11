@@ -6,6 +6,7 @@ import routerpais from "./pais.js"
 import routerfilhos from "./filho.js"
 import routercontas from "./contas.js"
 import routerplanodecontas from "./planodecontas.js"
+import routerdownloads from "./downloads.js"
 import path from "path"
 
 const __dirname = path.resolve();
@@ -27,6 +28,9 @@ routers.get("/sincronizar", authMid.autorizacaoEspecial ,dbsync.sincronizar)
 
 routers.get("/gerarserial", authMid.autorizacaoEspecial ,auth.pegarSerial)
 routers.get("/verificarserial", /*authMid.autorizar,*/ auth.verificarSerial)
+
+//downloads
+routers.use("/downloads", routerdownloads)
 
 
 //v01 

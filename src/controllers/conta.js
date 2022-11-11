@@ -6,10 +6,10 @@ async function findConta(req, res) {
     let id = req.body.id || req.query.id
     if (id){
         await contarepo.findByPk(id).then(
-            (result) => res.json(result))
+            (result) => res.status(200).json(result))
     } else {
         await contarepo.findAll().then(
-            (result) => res.json(result))
+            (result) => res.status(200).json(result))
     }
 }
 
@@ -22,7 +22,7 @@ async function findByName(req, res) {
             }
         }
         ).then(
-        (result) => res.json(result))
+        (result) => res.status(200).json(result))
 }
 
 async function addConta(req, res) {
@@ -49,7 +49,7 @@ async function updateConta(req, res) {
         }
     )
     await contarepo.findByPk(req_id).then(
-        (result) => res.json(result))
+        (result) => res.status(200).json(result))
 }
 
 async function deleteConta(req, res) {
@@ -61,9 +61,7 @@ async function deleteConta(req, res) {
             }
         }
     )
-    await contarepo.findByPk(req_id).then(
-        (result) => res.json(result)
-    )
+    res.status(204)    
 }
 
 

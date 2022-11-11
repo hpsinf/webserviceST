@@ -48,7 +48,7 @@ async function updatePlanodeContas(req, res) {
         await repo.findByPk(req_id, {include: ["contas"]} ).then(
             (result) => res.status(200).json(result))        
     } else {
-        res.status(202).send([{
+        res.status(412).send([{
             mensagem: "id não informado"
         }])
     }       
