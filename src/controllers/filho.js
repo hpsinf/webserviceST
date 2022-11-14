@@ -1,22 +1,30 @@
 import filhorepo from "../../models/filho.js";
+import auth from "../../services/auth.js"
 
 
 async function findFilho(req, res) {
     let id =  req.body.id || req.query.id
+    let dadoscliente = await auth.verificarSerial(req.headers['x-access-serial', 'serial'])
+    let dados = {        
+        cliente: dadoscliente.cliente
+    }
     if (id){
         await filhorepo.findByPk(id, {include: ["paiteste"]}).then(
             (result) => res.json(result))
     } else {
         await filhorepo.findAll({include: ["paiteste"]}).then(
-            (result) => res.json(result))
+            (result) => res.json([result.concat(dados)]))
+            
     }
+    console.log({dados})
+    
 }
 
-async function addFilho(req, res) {
+async function addFilho(req, res) {    
     await filhorepo.create({
         nomefilho: req.body.nome,
         idadefilho: req.body.idade,
-        paitesteId: req.body.idpai
+        paitesteId: req.body.idpai        
      }).then((result) => res.status(201).json(result))
 }
 

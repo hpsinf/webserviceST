@@ -34,15 +34,17 @@ async function autorizar (req, res, next) {
         jwt.verify(serial, chave, (error, decoded) => {
             if (error) {
                 return res.status(401).json([{
-                    mensagem: `Serial inválido:  ${error.message}`
+                    mensagem: 'Serial inválido'                    
+                    //mensagem: `Serial inválido ou não informado:  ${error.message}`
                 }])
             }
-            next()
+            next()            
         })
+        
     } catch (err){
         return res.status(500).json(err.mensagem)
     }
-
+    
 }
 
 async function autorizacaoEspecial (req, res, next) {

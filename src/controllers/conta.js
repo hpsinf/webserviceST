@@ -1,15 +1,25 @@
 import contarepo from "../../models/contas.js";
 import {Sequelize} from "sequelize"
+import auth from "../../services/auth.js"
 
 
 async function findConta(req, res) {  
     let id = req.body.id || req.query.id
+    let dadoscliente = await auth.verificarSerial(req.headers['x-access-serial', 'serial'])
+    let dados = {
+        cliente: dadoscliente.cliente        
+    }
     if (id){
         await contarepo.findByPk(id).then(
-            (result) => res.status(200).json(result))
+            (result) => {
+                let retorno = new Array()
+                retorno.push(result)
+                retorno.push(dados)
+                res.status(200).json(retorno)
+            })
     } else {
         await contarepo.findAll().then(
-            (result) => res.status(200).json(result))
+            (result) => res.status(200).json([result.concat(dados)]))
     }
 }
 
