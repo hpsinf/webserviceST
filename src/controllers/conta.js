@@ -21,6 +21,7 @@ async function findConta(req, res) {
         await contarepo.findAll().then(
             (result) => res.status(200).json(result.concat(dados)))
     }
+    console.log(dados)
 }
 
 async function findByName(req, res) {
@@ -36,12 +37,17 @@ async function findByName(req, res) {
 }
 
 async function addConta(req, res) {
+    let dadoscliente = await auth.verificarSerial(req.headers['x-access-serial', 'serial'])
+    let dados = {
+        cliente: dadoscliente.cliente
+    }
     await contarepo.create({
         conta: req.body.conta,
         descricao: req.body.descricao,
         uidpconta: req.body.idpconta
      }).then((result) => res.status(201).json(result))            
     
+     console.log(dados)
 }
 
 async function updateConta(req, res) {

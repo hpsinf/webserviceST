@@ -32,6 +32,9 @@ async function verificarSerial(req, res){
         if (!serial_verificado)
             return res.status(500).send([{Erro: "Falha ao verificar a serial"}])
 
+        if (serial_verificado == 'jwt expired')    
+        return res.status(200).send('Serial inválido')
+
         return res.status(200).send(serial_verificado)
 
     } catch (err){
