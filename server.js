@@ -40,7 +40,7 @@ app.use((req, res, next) => {
 
     // Request headers aceitos
     // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type, serial')
-    res.set('Access-Control-Allow-Headers', 'X-Requested-With, content-type, serial')
+    res.set('Access-Control-Allow-Headers', 'X-Requested-With, content-type, serial, senha')
 
     // true se precisar que o site inclua cookies na requisição recebida
     // (e.g. in case you use sessions)

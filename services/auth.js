@@ -48,7 +48,7 @@ async function autorizar (req, res, next) {
 }
 
 async function autorizacaoEspecial (req, res, next) {
-    let senha = req.body.senha
+    let senha = req.headers['x-access-senha', 'senha']
     if (senha){
         if (senha !== senhaEspecial){
             return res.status(401).json([
