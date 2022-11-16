@@ -2,31 +2,35 @@ import repo from "../../models/planodecontas.js"
 import { QueryTypes }  from "sequelize"
 
 async function findPlanodeContas(req, res) {
+    let sql = req.body.sql
     let id =  req.body.id || req.query.id
     let cc =  req.body.cc || req.query.cc
-    if (cc){
-        cc = {include: ["contas"]}
-    } else {
-        cc = {include: []}
-    }
 
-    if (id){
-        await repo.findByPk(id, cc).then(
-            (result) => res.json(result))               
+    if (sql){
+        const result = await repo.sequelize.query(sql,/*"SELECT * FROM planodecontas p inner join contas c on c.uidpconta = p.idplanodecontas",*/         
+        {
+            type: QueryTypes.SELECT, 
+            plain: false, //true retorna so o primeiro registro
+            raw: false, //true caso não exista o modelo
+            nest: false //false sem aninhar exemplo de resultado {"foo.bar.baz": 1 } e true = {"foo":{"bar": {"baz": 1}}}
+            //logging: console.log
+        })
+        res.json(result)            
     } else {
-         await repo.findAll(cc).then(
-            (result) => res.json(result))
-
-        // const result = await repo.sequelize.query("SELECT * FROM planodecontas p inner join contas c on c.uidpconta = p.idplanodecontas", 
-        // {
-        //     type: QueryTypes.SELECT, 
-        //     plain: false, //True retorna so o primeiro registro
-        //     raw: false, //True caso não exista o modelo
-        //     nest: true //False sem aninhar exemplo de resultado {"foo.bar.baz": 1 } e True = {"foo":{"bar": {"baz": 1}}}
-        //     //logging: console.log
-        // })
-        // res.json(result)            
-    }
+        if (cc){
+            cc = {include: ["contas"]}
+        } else {
+            cc = {include: []}
+        }
+    
+        if (id){
+            await repo.findByPk(id, cc).then(
+                (result) => res.json(result))               
+        } else {
+             await repo.findAll(cc).then(
+                (result) => res.json(result))            
+        }
+    }        
 }
 
 async function addPlanodeContas(req, res) {
