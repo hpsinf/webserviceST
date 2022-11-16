@@ -3,11 +3,18 @@ import { QueryTypes }  from "sequelize"
 
 async function findPlanodeContas(req, res) {
     let id =  req.body.id || req.query.id
-    if (id){        
-         await repo.findByPk(id, {include: ["contas"]}).then(
-            (result) => res.json(result))
+    let cc =  req.body.cc || req.query.cc
+    if (cc){
+        cc = {include: ["contas"]}
     } else {
-         await repo.findAll(/*{include: ["contas"]}*/).then(
+        cc = {include: []}
+    }
+
+    if (id){
+        await repo.findByPk(id, cc).then(
+            (result) => res.json(result))               
+    } else {
+         await repo.findAll(cc).then(
             (result) => res.json(result))
 
         // const result = await repo.sequelize.query("SELECT * FROM planodecontas p inner join contas c on c.uidpconta = p.idplanodecontas", 
