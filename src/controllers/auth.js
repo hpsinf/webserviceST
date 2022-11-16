@@ -26,7 +26,7 @@ async function verificarSerial(req, res){
     try {
         const serial = req.headers['x-access-serial', 'serial']
         if (!serial)
-            return res.status(500).send([{Erro: "Serial não encontrardo"}])
+            return res.status(500).send([{Erro: "Serial não encontrado"}])
 
         const serial_verificado = await auth.verificarSerial(serial)
         if (!serial_verificado)
