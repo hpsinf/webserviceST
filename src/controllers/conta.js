@@ -4,7 +4,7 @@ import auth from "../../services/auth.js"
 
 
 async function findConta(req, res) {  
-    let id = req.body.id || req.query.id
+    let id = req.body.id
     let dadoscliente = await auth.verificarSerial(req.headers['x-access-serial', 'serial'])
     let dados = {
         cliente: dadoscliente.cliente        
@@ -25,14 +25,16 @@ async function findConta(req, res) {
 }
 
 async function findByName(req, res) {
-    let descricao =  req.body.descricao || req.query.descricao || req.params.descricao
+    let descricao = req.body.descricao 
     await contarepo.findAll(
         {
             where: {
-                descricao: {[Sequelize.Op.like]: `%${descricao}%`}
+                descricao: {
+                    [Sequelize.Op.like]: `%${descricao}%`
+                }
             }
         }
-        ).then(
+    ).then(
         (result) => res.status(200).json(result))
 }
 
@@ -51,7 +53,7 @@ async function addConta(req, res) {
 }
 
 async function updateConta(req, res) {
-    let req_id =  req.body.id || req.query.id || req.params.id
+    let req_id = req.body.id
     await contarepo.update(
     {
         conta: req.body.conta,
@@ -59,9 +61,9 @@ async function updateConta(req, res) {
         descricao: req.body.descricao                
         },
         {
-            where: {
-                idconta: req_id                
-            }
+          where: {
+              idconta: req_id                
+          }
         }
     )
     await contarepo.findByPk(req_id).then(

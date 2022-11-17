@@ -8,7 +8,10 @@ const chave = process.env.CHAVE
 
 async function gerarSerial (dados) {
     let periodo = dados.dias
-    return jwt.sign(dados, chave, { expiresIn: periodo})
+    if (!periodo){
+        periodo = '30d'
+    }
+    return jwt.sign(dados, chave, {expiresIn: periodo})
 }
 
 

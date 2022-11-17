@@ -3,7 +3,7 @@ import auth from "../../services/auth.js"
 
 
 async function findFilho(req, res) {
-    let id =  req.body.id || req.query.id
+    let id = req.body.id
     let dadoscliente = await auth.verificarSerial(req.headers['x-access-serial', 'serial'])
     let dados = {        
         cliente: dadoscliente.cliente

@@ -2,9 +2,10 @@ import repo from "../../models/planodecontas.js"
 import { QueryTypes }  from "sequelize"
 
 async function findPlanodeContas(req, res) {
+    console.time()
     let sql = req.body.sql
-    let id =  req.body.id || req.query.id
-    let cc =  req.body.cc || req.query.cc
+    let id = req.body.id
+    let cc = req.body.cc
 
     if (sql){
         const result = await repo.sequelize.query(sql,/*"SELECT * FROM planodecontas p inner join contas c on c.uidpconta = p.idplanodecontas",*/         
@@ -16,6 +17,7 @@ async function findPlanodeContas(req, res) {
             //logging: console.log
         })
         res.json(result)            
+        console.timeEnd()        
     } else {
         if (cc){
             cc = {include: ["contas"]}
@@ -25,10 +27,16 @@ async function findPlanodeContas(req, res) {
     
         if (id){
             await repo.findByPk(id, cc).then(
-                (result) => res.json(result))               
+                (result) => {
+                    res.json(result)
+                    console.timeEnd()                    
+                })               
         } else {
              await repo.findAll(cc).then(
-                (result) => res.json(result))            
+                (result) => {
+                    res.json(result)
+                    console.timeEnd()
+                })            
         }
     }        
 }

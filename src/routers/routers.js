@@ -7,10 +7,11 @@ import routerfilhos from "./filho.js"
 import routercontas from "./contas.js"
 import routerplanodecontas from "./planodecontas.js"
 import routerdownloads from "./downloads.js"
+import routerparcerias from "./parcerias.js"
 import path from "path"
 
 const __dirname = path.resolve();
-
+const siafic_v01 = "/siafic/v01/"
 
 //import filhocontroller from "../controllers/filho.js"
 //import paicontroller from "../controllers/pai.js"
@@ -24,24 +25,26 @@ routers.get('/sobre', (req, res) =>
     res.json ({"sobre": "Sobre"})
 )
 
-routers.get("/sincronizar", authMid.autorizacaoEspecial ,dbsync.sincronizar)
+routers.get("/sincronizar", authMid.autorizacaoEspecial , dbsync.sincronizar)
 
-routers.get("/gerarserial", authMid.autorizacaoEspecial ,auth.pegarSerial)
+routers.get("/gerarserial", authMid.autorizacaoEspecial , auth.pegarSerial)
 routers.get("/verificarserial", /*authMid.autorizar,*/ auth.verificarSerial)
 
 //downloads
 routers.use("/downloads", routerdownloads)
 
-
 //v01 
-routers.get("/siafic/v01/", (req, res) =>{
+routers.get(siafic_v01, (req, res) =>{
     res.sendFile(path.join(__dirname+'/index.html'))    
 })
-routers.use("/siafic/v01/", authMid.autorizar, routerpais)
-routers.use("/siafic/v01/", authMid.autorizar, routerfilhos)
 
-routers.use("/siafic/v01/", authMid.autorizar, routercontas)
-routers.use("/siafic/v01/", authMid.autorizar, routerplanodecontas)
+routers.use(siafic_v01, authMid.autorizar, routerpais)
+routers.use(siafic_v01, authMid.autorizar, routerfilhos)
+
+routers.use(siafic_v01, authMid.autorizar, routercontas)
+routers.use(siafic_v01, authMid.autorizar, routerplanodecontas)
+
+routers.use(siafic_v01, authMid.autorizar, routerparcerias)
 
 
 export {routers as default}

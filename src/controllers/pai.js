@@ -3,7 +3,7 @@ import {Sequelize} from "sequelize"
 
 
 async function findPai(req, res) {  
-    let id = req.body.id || req.query.id
+    let id = req.body.id
     if (id){
         await pairepo.findByPk(id).then(
             (result) => res.json(result))
@@ -14,7 +14,7 @@ async function findPai(req, res) {
 }
 
 async function findByName(req, res) {
-    let nome =  req.body.nome || req.query.nome || req.params.nome
+    let nome = req.body.nome
     await pairepo.findAll(
         {
             where: {
@@ -26,7 +26,7 @@ async function findByName(req, res) {
 }
 
 async function addPai(req, res) {
-    let amb = req.query.amb ||req.body.amb
+    let amb = req.body.amb
     switch (amb) {
         case '1':
             await pairepo.create({
@@ -48,7 +48,7 @@ async function addPai(req, res) {
 }
 
 async function updatePai(req, res) {
-    let id =  req.body.id || req.query.id || req.params.id
+    let id = req.body.id
     await pairepo.update(
     {
         nome: req.body.nome

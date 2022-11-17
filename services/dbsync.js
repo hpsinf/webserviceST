@@ -6,7 +6,7 @@ import Pessoa from "../models/pessoa.js";
 import db from "../src/db.js";
 
 async function sicronizardb() {
-    await db.sync({ alter: true });    
+    await db.sync({alter: true});    
 }
 
 export default sicronizardb
