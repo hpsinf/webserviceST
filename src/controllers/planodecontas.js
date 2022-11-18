@@ -52,7 +52,7 @@ async function addPlanodeContas(req, res) {
 }
 
 async function updatePlanodeContas(req, res) {
-    let req_id = req.body.id
+    let id = req.body.id
     let cnpj = req.body.cnpj
     let nome = req.body.nome
     let exercicio = req.body.exercicio
@@ -64,10 +64,10 @@ async function updatePlanodeContas(req, res) {
                 exercicio: exercicio
             },
             {
-                where: { idplanodecontas: req_id }
+                where: { idplanodecontas: id }
             }
         )
-        await repo.findByPk(req_id, { include: ["contas"] }).then(
+        await repo.findByPk(id, { include: ["contas"] }).then(
             (result) => res.status(200).json(result))
     } else {
         res.status(412).send([{
