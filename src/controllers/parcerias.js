@@ -53,7 +53,7 @@ async function addParcerias(req, res) {
 async function updateParcerias(req, res) {
     try {
         console.time()
-        let req_id = req.body.id
+        let id = req.body.id
         let cnpj = req.body.cnpj
         let descricao = req.body.descricao
         let sistema = req.body.sistema
@@ -65,7 +65,7 @@ async function updateParcerias(req, res) {
                     sistema: sistema
                 },
                 {
-                    where: { idparceria: req_id }
+                    where: { idparceria: id }
                 }
             )
             await repo.findByPk(req_id).then(
@@ -84,15 +84,15 @@ async function updateParcerias(req, res) {
 async function deleteParcerias(req, res) {
     try {
         console.time()
-        let req_id = req.body.id
+        let id = req.body.id
         await repo.destroy(
             {
                 where: {
-                    idparceria: req_id
+                    idparceria: id
                 }
             }
         )
-        await repo.findByPk(req_id).then(
+        await repo.findByPk(id).then(
             (result) => res.status(200).json(result)
         )
     }
