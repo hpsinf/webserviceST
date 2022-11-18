@@ -6,16 +6,16 @@ const senhaEspecial = process.env.CHAVE
 const chave = process.env.CHAVE
 
 
-async function gerarSerial (dados) {
+async function gerarSerial(dados) {
     let periodo = dados.dias
-    if (!periodo){
+    if (!periodo) {
         periodo = '30d'
     }
-    return jwt.sign(dados, chave, {expiresIn: periodo})
+    return jwt.sign(dados, chave, { expiresIn: periodo })
 }
 
 
-async function verificarSerial (serial) {
+async function verificarSerial(serial) {
     try {
         var dados = await jwt.verify(serial, chave)
     } catch (err) {
@@ -24,7 +24,7 @@ async function verificarSerial (serial) {
     return dados;
 }
 
-async function autorizar (req, res, next) {
+async function autorizar(req, res, next) {
     try {
         const sXAccessSerial = 'x-access-serial'
         const sSerial = 'serial'
@@ -37,31 +37,31 @@ async function autorizar (req, res, next) {
         jwt.verify(serial, chave, (error, decoded) => {
             if (error) {
                 return res.status(401).json([{
-                    mensagem: 'Serial inválido'                    
+                    mensagem: 'Serial inválido'
                     //mensagem: `Serial inválido ou não informado:  ${error.message}`
                 }])
             }
-            next()            
+            next()
         })
-        
-    } catch (err){
+
+    } catch (err) {
         return res.status(500).json(err.mensagem)
     }
-    
+
 }
 
-async function autorizacaoEspecial (req, res, next) {
+async function autorizacaoEspecial(req, res, next) {
     let senha = req.headers['x-access-senha', 'senha']
-    if (senha){
-        if (senha !== senhaEspecial){
+    if (senha) {
+        if (senha !== senhaEspecial) {
             return res.status(401).json([
-                {mensagem: "Acesso negado"}
+                { mensagem: "Acesso negado" }
             ])
         } else next()
     } else
         return res.status(403).json([
-            {mensagem: "Acesso negado"}
+            { mensagem: "Acesso negado" }
         ])
 }
 
-export default {gerarSerial, verificarSerial, autorizar, autorizacaoEspecial}
+export default { gerarSerial, verificarSerial, autorizar, autorizacaoEspecial }

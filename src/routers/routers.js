@@ -19,23 +19,23 @@ const siafic_v01 = "/siafic/v01/"
 const routers = express.Router()
 
 routers.get('/', (req, res) =>
-    res.sendFile(path.join(__dirname+'/index.html'))
+    res.sendFile(path.join(__dirname + '/index.html'))
 )
 routers.get('/sobre', (req, res) =>
-    res.json ({"sobre": "Sobre"})
+    res.json({ "sobre": "Sobre" })
 )
 
-routers.get("/sincronizar", authMid.autorizacaoEspecial , dbsync.sincronizar)
+routers.get("/sincronizar", authMid.autorizacaoEspecial, dbsync.sincronizar)
 
-routers.get("/gerarserial", authMid.autorizacaoEspecial , auth.pegarSerial)
+routers.get("/gerarserial", authMid.autorizacaoEspecial, auth.pegarSerial)
 routers.get("/verificarserial", /*authMid.autorizar,*/ auth.verificarSerial)
 
 //downloads
 routers.use("/downloads", routerdownloads)
 
 //v01 
-routers.get(siafic_v01, (req, res) =>{
-    res.sendFile(path.join(__dirname+'/index.html'))    
+routers.get(siafic_v01, (req, res) => {
+    res.sendFile(path.join(__dirname + '/index.html'))
 })
 
 routers.use(siafic_v01, authMid.autorizar, routerpais)
@@ -47,4 +47,4 @@ routers.use(siafic_v01, authMid.autorizar, routerplanodecontas)
 routers.use(siafic_v01, authMid.autorizar, routerparcerias)
 
 
-export {routers as default}
+export { routers as default }
