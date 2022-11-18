@@ -37,50 +37,68 @@ async function findParcerias(req, res) {
 }
 
 async function addParcerias(req, res) {
-    await repo.create({
-        cnpj: req.body.cnpj,
-        descricao: req.body.descricao,
-        sistema: req.body.sistema
-    }).then((result) => res.status(201).json(result))
+    try {
+        console.time()
+        await repo.create({
+            cnpj: req.body.cnpj,
+            descricao: req.body.descricao,
+            sistema: req.body.sistema
+        }).then((result) => res.status(201).json(result))
+    }
+    finally {
+        console.timeEnd()
+    }
 }
 
 async function updateParcerias(req, res) {
-    let req_id = req.body.id
-    let cnpj = req.body.cnpj
-    let descricao = req.body.descricao
-    let sistema = req.body.sistema
-    if (id) {
-        await repo.update(
-            {
-                cnpj: cnpj,
-                descricao: descricao,
-                sistema: sistema
-            },
-            {
-                where: { idparceria: req_id }
-            }
-        )
-        await repo.findByPk(req_id).then(
-            (result) => res.status(200).json(result))
-    } else {
-        res.status(412).send([{
-            mensagem: "id não informado"
-        }])
+    try {
+        console.time()
+        let req_id = req.body.id
+        let cnpj = req.body.cnpj
+        let descricao = req.body.descricao
+        let sistema = req.body.sistema
+        if (id) {
+            await repo.update(
+                {
+                    cnpj: cnpj,
+                    descricao: descricao,
+                    sistema: sistema
+                },
+                {
+                    where: { idparceria: req_id }
+                }
+            )
+            await repo.findByPk(req_id).then(
+                (result) => res.status(200).json(result))
+        } else {
+            res.status(412).send([{
+                mensagem: "id não informado"
+            }])
+        }
+    }
+    finally {
+        console.timeEnd()
     }
 }
 
 async function deleteParcerias(req, res) {
-    let req_id = req.body.id
-    await repo.destroy(
-        {
-            where: {
-                idparceria: req_id
+    try {
+        console.time()
+        let req_id = req.body.id
+        await repo.destroy(
+            {
+                where: {
+                    idparceria: req_id
+                }
             }
-        }
-    )
-    await repo.findByPk(req_id).then(
-        (result) => res.status(200).json(result)
-    )
+        )
+        await repo.findByPk(req_id).then(
+            (result) => res.status(200).json(result)
+        )
+    }
+    finally {
+        console.timeEnd()
+    }
 }
 
 export default { findParcerias, addParcerias, updateParcerias, deleteParcerias }

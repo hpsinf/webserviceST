@@ -53,7 +53,7 @@ async function addConta(req, res) {
 }
 
 async function updateConta(req, res) {
-    let req_id = req.body.id
+    let id = req.body.id
     await contarepo.update(
     {
         conta: req.body.conta,
@@ -62,11 +62,11 @@ async function updateConta(req, res) {
         },
         {
           where: {
-              idconta: req_id                
+              idconta: id                
           }
         }
     )
-    await contarepo.findByPk(req_id).then(
+    await contarepo.findByPk(id).then(
         (result) => res.status(200).json(result))
 }
 
