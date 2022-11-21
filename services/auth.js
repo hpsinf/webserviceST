@@ -30,7 +30,7 @@ async function autorizar(req, res, next) {
         const sSerial = 'serial'
         const serial = req.headers[sXAccessSerial, sSerial]
         if (!serial) {
-            return res.status(403).json([{
+            return res.status(401).json([{
                 mensagem: "Serial de acesso não encontrado, serial deve ser informado entre os headers da requisição"
             }])
         }
