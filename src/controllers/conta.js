@@ -79,7 +79,8 @@ async function deleteConta(req, res) {
             }
         }
     )
-    res.status(204)    
+    await contarepo.findByPk(req_id).then(
+        (result) => res.status(200).json(result)) 
 }
 
 
