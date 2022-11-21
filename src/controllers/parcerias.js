@@ -1,5 +1,6 @@
 import repo from "../../models/parcerias.js"
 import { QueryTypes } from "sequelize"
+import auth from "../../services/auth.js"
 
 async function findParcerias(req, res) {
     try {
@@ -38,11 +39,13 @@ async function findParcerias(req, res) {
 
 async function addParcerias(req, res) {
     try {
-        console.time()
+        console.time()        
+        let dadosResponsavel = await auth.verificarSerial(req.headers['x-access-serial', 'serial'])        
+        
         await repo.create({
             cnpj: req.body.cnpj,
             descricao: req.body.descricao,
-            sistema: req.body.sistema
+            sistema: req.body.sistema            
         }).then((result) => res.status(201).json(result))
     }
     finally {
