@@ -21,7 +21,6 @@ app.disable('x-powered-by')
 app.disable('etag') 
 app.disable('server')
 app.disable('via')
-app.disable('content-encoding')
 
 
 app.use(express.json())
