@@ -1,15 +1,22 @@
 import repo from "../../models/planodecontas.js"
 import { QueryTypes } from "sequelize"
+import fn from "../../services/funcoes.js"
+import auth from "../../services/auth.js"
+
 
 async function findPlanodeContas(req, res) {
     try {
         console.time()
+        let dadoscliente = await auth.verificarSerial(req.headers['x-access-serial', 'serial'])
+        let dados = {
+            cliente: dadoscliente.cliente
+        }
         let sql = req.body.sql
         let id = req.body.id
         let cc = req.body.cc
 
         if (sql) {
-            const result = await repo.sequelize.query(sql,/*"SELECT * FROM planodecontas p inner join contas c on c.uidpconta = p.idplanodecontas",*/
+            const result = await repo.sequelize.query(sql,
                 {
                     type: QueryTypes.SELECT,
                     plain: false, //true retorna so o primeiro registro
@@ -17,7 +24,7 @@ async function findPlanodeContas(req, res) {
                     nest: false //false sem aninhar exemplo de resultado {"foo.bar.baz": 1 } e true = {"foo":{"bar": {"baz": 1}}}
                     //logging: console.log
                 })
-            res.json(result)
+            res.json(result.concat(dados))
         } else {
             if (cc) {
                 cc = { include: ["contas"] }
@@ -28,18 +35,22 @@ async function findPlanodeContas(req, res) {
             if (id) {
                 await repo.findByPk(id, cc).then(
                     (result) => {
-                        res.json(result)
+                        retorno = new Array()
+                        retorno.push(result)
+                        retorno.push(dados)
+                        res.json(retorno)
                     })
             } else {
                 await repo.findAll(cc).then(
                     (result) => {
-                        res.json(result)
+                        res.json(result.concat(dados))
                     })
             }
         }
     }
     finally {
         console.timeEnd()
+        console.log(fn.dataHoraAtualFormatada())
     }
 }
 
