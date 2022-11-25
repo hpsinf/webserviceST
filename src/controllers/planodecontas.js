@@ -12,19 +12,31 @@ async function findPlanodeContas(req, res) {
             cliente: dadoscliente.cliente
         }
         let sql = req.body.sql
+        sql = sql.toLowerCase().trim()
         let id = req.body.id
         let cc = req.body.cc
 
         if (sql) {
-            const result = await repo.sequelize.query(sql,
-                {
-                    type: QueryTypes.SELECT,
-                    plain: false, //true retorna so o primeiro registro
-                    raw: false, //true caso não exista o modelo
-                    nest: false //false sem aninhar exemplo de resultado {"foo.bar.baz": 1 } e true = {"foo":{"bar": {"baz": 1}}}
-                    //logging: console.log
-                })
-            res.json(result.concat(dados))
+            let sInsert = sql.indexOf('insert')
+            let sUpdate = sql.indexOf('update')
+            let sDelete = sql.indexOf('delete')                        
+            
+            if ((sInsert > -1) || (sDelete > -1) || (sUpdate > -1)){
+                res.send({err: "sql não permitido"})    
+            } else
+            if (sql.indexOf('select') == 0){
+                const result = await repo.sequelize.query(sql,
+                    {
+                        type: QueryTypes.SELECT,
+                        plain: false, //true retorna so o primeiro registro
+                        raw: false, //true caso não exista o modelo
+                        nest: false //false sem aninhar exemplo de resultado {"foo.bar.baz": 1 } e true = {"foo":{"bar": {"baz": 1}}}
+                        //logging: console.log
+                    })
+                res.json(result.concat(dados))
+            } else
+            res.send({err: "sql não permitido"})    
+            
         } else {
             if (cc) {
                 cc = { include: ["contas"] }
