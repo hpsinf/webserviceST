@@ -11,18 +11,18 @@ async function findPlanodeContas(req, res) {
         let dados = {
             cliente: dadoscliente.cliente
         }
-        let sql = req.body.sql
-        sql = sql.toLowerCase().trim()
+        let sql = req.body.sql                
         let id = req.body.id
         let cc = req.body.cc
 
         if (sql) {
+            sql = sql.toLowerCase().trim()
             let sInsert = sql.indexOf('insert')
             let sUpdate = sql.indexOf('update')
             let sDelete = sql.indexOf('delete')                        
             
             if ((sInsert > -1) || (sDelete > -1) || (sUpdate > -1)){
-                res.send({err: "sql não permitido"})    
+                res.json({err: "sql não permitido"})    
             } else
             if (sql.indexOf('select') == 0){
                 const result = await repo.sequelize.query(sql,
@@ -47,7 +47,7 @@ async function findPlanodeContas(req, res) {
             if (id) {
                 await repo.findByPk(id, cc).then(
                     (result) => {
-                        retorno = new Array()
+                        let retorno = new Array()
                         retorno.push(result)
                         retorno.push(dados)
                         res.json(retorno)

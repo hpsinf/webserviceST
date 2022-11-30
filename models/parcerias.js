@@ -11,7 +11,11 @@ const parcerias = db.define('parcerias', {
         },
         descricao: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: {
+                name: 'descricão',
+                msg: 'Informa uma descrição diferente'                
+            }
         },
         sistema: {
             type: Sequelize.STRING,
@@ -20,10 +24,10 @@ const parcerias = db.define('parcerias', {
         cnpj: {
             type: Sequelize.STRING,
             allowNull: false,
-            unique: {
-                name:'cnpj',
-                msg:'Informa um CNPJ diferente'
-            },            
+            // unique: {
+            //     name:'cnpj',
+            //     msg:'Informa um CNPJ diferente'
+            // },            
             validate: {
                 len: {
                     args:[14,14],

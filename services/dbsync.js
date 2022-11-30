@@ -5,8 +5,8 @@ import Pessoa from "../models/pessoa.js";
 
 import db from "../src/db.js";
 
-async function sicronizardb() {
-    await db.sync({alter: true});    
+async function sicronizardb(bforce = false) {
+    await db.sync({alter: true, force: bforce });    
 }
 
 export default sicronizardb

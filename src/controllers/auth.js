@@ -7,11 +7,15 @@ async function pegarSerial (req, res) {
     const diasPermissao = req.body.dias
     const clientePermissao = req.body.cliente
     const idc = req.body.idc
+    const sistema = req.body.sistema
+    const cnpj = req.body.cnpj    
 
     const dados = {
             dias: diasPermissao,
             cliente: clientePermissao,
+            cnpj: cnpj,
             idc: idc,
+            sistema: sistema,            
             datageracao: util.dataHoraAtualFormatada('d'),
             hora: util.dataHoraAtualFormatada('h')
     }
