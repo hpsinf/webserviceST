@@ -5,6 +5,8 @@ import auth from "../../services/auth.js"
 async function findParcerias(req, res) {
     try {
         console.time()
+        let dadosResponsavel = await auth.verificarSerial(req.headers['x-access-serial', 'serial'])                
+        
         let sql = req.body.sql
         let id = req.body.id
 
@@ -56,6 +58,8 @@ async function addParcerias(req, res) {
 async function updateParcerias(req, res) {
     try {
         console.time()
+        let dadosResponsavel = await auth.verificarSerial(req.headers['x-access-serial', 'serial'])        
+
         let id = req.body.id
         let cnpj = req.body.cnpj
         let descricao = req.body.descricao
@@ -71,7 +75,7 @@ async function updateParcerias(req, res) {
                     where: { idparceria: id }
                 }
             )
-            await repo.findByPk(req_id).then(
+            await repo.findByPk(id).then(
                 (result) => res.status(200).json(result))
         } else {
             res.status(412).send([{
@@ -87,6 +91,8 @@ async function updateParcerias(req, res) {
 async function deleteParcerias(req, res) {
     try {
         console.time()
+        let dadosResponsavel = await auth.verificarSerial(req.headers['x-access-serial', 'serial'])        
+
         let id = req.body.id
         await repo.destroy(
             {
