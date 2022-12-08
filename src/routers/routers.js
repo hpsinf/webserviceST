@@ -22,8 +22,12 @@ const siafic_v01 = "/siafic/v01/"
 
 const routers = express.Router()
 
+// routers.get('/', (req, res) =>
+//     res.sendFile(path.join(__dirname + '/index.html'))
+// )
+
 routers.get('/', (req, res) =>
-    res.sendFile(path.join(__dirname + '/index.html'))
+res.json({"WebService": "Ativo"})
 )
 routers.get('/sobre', (req, res) =>
     res.json({ "sobre": "Sobre" })
