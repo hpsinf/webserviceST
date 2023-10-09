@@ -79,7 +79,3 @@ app.use((err, req, res, next) => {
     console.log(err.stack);
     res.status(err.status || 500).sendFile('error.html', {root: path.join(__dirname, './')});
 });
-
-
-
-

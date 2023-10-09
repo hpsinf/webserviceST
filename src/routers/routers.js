@@ -12,7 +12,7 @@ import routerdownloads from "./downloads.js"
 import routerparcerias from "./parcerias.js"
 
 
-const __dirname = path.resolve();
+const __dirname = path.resolve()
 
 const siafic_v00 = "/siafic/v00/"
 const siafic_v01 = "/siafic/v01/"
@@ -27,7 +27,9 @@ const routers = express.Router()
 // )
 
 routers.get('/', (req, res) =>
-res.json({"WebService": "Ativo"})
+res.json({"WebService": "Ativo",
+          "Developed by": "HPS",
+          "Contact": "hpsintegracoes@gmail.com"})
 )
 
 routers.get('/sobre', (req, res) =>

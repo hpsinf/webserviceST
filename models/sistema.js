@@ -2,8 +2,8 @@ import { DataTypes, Sequelize } from "sequelize"
 import db from "../src/db.js"
 
 
-const pessoa = db.define('pessoas', {
-    idpessoa: {
+const sistema = db.define('sistemas', {
+    idsistema: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
@@ -37,6 +37,21 @@ const pessoa = db.define('pessoas', {
             notEmpty: true
         }
     },
+    pes_codigo: {
+        type: DataTypes.STRING
+    },
+    item_cod: {
+        type: DataTypes.STRING
+    },
+    ent_valor: {
+        type: DataTypes.DOUBLE
+    },
+    ent_doc: {
+        type: DataTypes.STRING
+    },
+    ent_data: {
+        type: DataTypes.DATEONLY
+    },
     cnpj_ung: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -67,4 +82,4 @@ const pessoa = db.define('pessoas', {
     }
 })
 
-export { pessoa as default }
+export { sistema as default }
